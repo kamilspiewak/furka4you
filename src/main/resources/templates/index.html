@@ -1,0 +1,23 @@
+  
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+     xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorator="layout">
+    <head>
+        <title>Furka4You</title>
+        <meta charset="UTF-8" />
+    </head>
+    <body>
+        <section th:object="${cm1}">
+            <h3 th:text="${cm1.id}"></h3>
+            <p th:text="${cm1.name}"></p>
+        </section>
+        <section th:object="${cm2}">
+            <h3 th:text="${cm2.id}"></h3>
+            <p th:text="${cm2.name}"></p>
+            <p th:text="${cm2.manufacturer.id}"></p>
+            <p th:text="${cm2.manufacturer.name}"></p>
+        </section>
+    </body>
+</html>
