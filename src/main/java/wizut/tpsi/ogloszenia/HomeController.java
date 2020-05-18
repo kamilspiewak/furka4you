@@ -6,6 +6,7 @@
 package wizut.tpsi.ogloszenia;
 
 import java.sql.SQLException;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -32,6 +33,10 @@ public class HomeController {
     
     @GetMapping("/")
     public String home(Model model) {
+    List<CarManufacturer> carManufacturers = offersService.getCarManufacturers();
+
+    model.addAttribute("carManufacturers", carManufacturers);
+
     return "offersList";
 }
     

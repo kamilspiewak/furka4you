@@ -9,6 +9,7 @@
     </head>
     <body>
         <section layout:fragment="content">
+            <p th:each="cm : ${carManufacturers}" th:text="${cm.name}"></p>
         </section>
     </body>
 </html>
