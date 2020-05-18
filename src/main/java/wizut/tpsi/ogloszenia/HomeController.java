@@ -12,7 +12,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import wizut.tpsi.ogloszenia.jpa.BodyStyle;
 import wizut.tpsi.ogloszenia.jpa.CarManufacturer;
+import wizut.tpsi.ogloszenia.jpa.CarModel;
+import wizut.tpsi.ogloszenia.jpa.FuelType;
 import wizut.tpsi.ogloszenia.services.OffersService;
 
 /**
@@ -34,8 +37,14 @@ public class HomeController {
     @GetMapping("/")
     public String home(Model model) {
     List<CarManufacturer> carManufacturers = offersService.getCarManufacturers();
+    List<CarModel> carModels = offersService.getCarModels();
+    List<BodyStyle> bodyStyles = offersService.getBodyStyles();
+    List<FuelType> fuelTypes = offersService.getFuelTypes();
 
     model.addAttribute("carManufacturers", carManufacturers);
+    model.addAttribute("carModels", carModels);
+    model.addAttribute("bodyStyles", bodyStyles);
+    model.addAttribute("fuelTypes", fuelTypes);
 
     return "offersList";
 }

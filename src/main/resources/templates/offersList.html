@@ -9,7 +9,16 @@
     </head>
     <body>
         <section layout:fragment="content">
-            <p th:each="cm : ${carManufacturers}" th:text="${cm.name}"></p>
+            <p th:each="cm1 : ${carManufacturers}" th:text="${cm1.name}"></p>
+        </section>
+        <section layout:fragment="content">
+            <p th:each="cm2 : ${carModels}" th:text="${cm2.name}"></p>
+        </section>
+        <section layout:fragment="content">
+            <p th:each="bs : ${bodyStyles}" th:text="${bs.name}"></p>
+        </section>
+        <section layout:fragment="content">
+            <p th:each="ft : ${fuelTypes}" th:text="${ft.name}"></p>
         </section>
     </body>
 </html>
