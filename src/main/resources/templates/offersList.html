@@ -9,16 +9,28 @@
     </head>
     <body>
         <section layout:fragment="content">
-            <p th:each="cm1 : ${carManufacturers}" th:text="${cm1.name}"></p>
+            <table class="table">
+        <tr>
+            <th>Tytuł</th>
+            <th>Marka</th>
+            <th>Model</th>
+            <th>Rocznik</th>
+            <th>Cena</th>
+            <th></th>
+        </tr>
+        <tr th:each="offer : ${offers}">
+            <td th:text="${offer.title}"></td>
+            <td th:text="${offer.model.manufacturer.name}"></td>
+            <td th:text="${offer.model.name}"></td>
+            <td th:text="${offer.year}"></td>
+            <td class="text-right">
+        <span th:text="${#numbers.formatDecimal(offer.price, 0, 'WHITESPACE', 0,'COMMA')}"></span>
+        zł
+    </td>
+            <td><a th:href="|/offer/${offer.id}|">Pokaż</a></td>
+        </tr>
+    </table>
         </section>
-        <section layout:fragment="content">
-            <p th:each="cm2 : ${carModels}" th:text="${cm2.name}"></p>
-        </section>
-        <section layout:fragment="content">
-            <p th:each="bs : ${bodyStyles}" th:text="${bs.name}"></p>
-        </section>
-        <section layout:fragment="content">
-            <p th:each="ft : ${fuelTypes}" th:text="${ft.name}"></p>
-        </section>
+        
     </body>
 </html>
