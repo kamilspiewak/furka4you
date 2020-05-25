@@ -9,18 +9,23 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
+
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import wizut.tpsi.ogloszenia.jpa.BodyStyle;
 import wizut.tpsi.ogloszenia.jpa.CarManufacturer;
 import wizut.tpsi.ogloszenia.jpa.CarModel;
 import wizut.tpsi.ogloszenia.jpa.FuelType;
 import wizut.tpsi.ogloszenia.jpa.Offer;
+import wizut.tpsi.ogloszenia.web.OfferFilter;
 
 /**
  *
  * @author Kamil
  */
 @Service
+@Transactional
 public class OffersService {
      @PersistenceContext
     private EntityManager em;
@@ -60,6 +65,7 @@ public class OffersService {
 
     return query.getResultList();
 }
+ 
      
      public List<FuelType> getFuelTypes(){
          String jpql = "select ft from FuelType ft order by ft.name";
@@ -84,6 +90,7 @@ public class OffersService {
     TypedQuery<Offer> query = em.createQuery(jpql, Offer.class);
     query.setParameter("id", modelId);
 
+
     return query.getResultList();
 }
      
@@ -95,4 +102,48 @@ public class OffersService {
 
     return query.getResultList();
 }
+     public Offer createOffer(Offer offer) {
+    em.persist(offer);
+    return offer;
+}
+     
+     public List<Offer> getOffers(OfferFilter filter){
+         
+         String jpql = "select off from Offer off where 1=1 ";
+         if(filter.getModelId()!=null){
+             jpql = jpql.concat("and off.model.id = :id ");
+         }
+         if(filter.getManufacturerId()!=null){
+             jpql = jpql.concat("and off.model.manufacturer.id = :id2 ");
+         }
+         if(filter.getDateFrom()!=null){
+             jpql = jpql.concat("and off.year >= :yr1 ");
+         }
+         if(filter.getDateTo()!=null){
+             jpql = jpql.concat("and off.year <= :yr2 ");
+         }
+         if(filter.getFuelTypeId()!=null){
+             jpql = jpql.concat("and off.fuelType.id = :ft ");
+         }
+         jpql = jpql.concat("order by off.title");
+         TypedQuery<Offer> query = em.createQuery(jpql,Offer.class);
+         if(filter.getModelId()!=null){
+             query.setParameter("id", filter.getModelId());
+         }
+         if(filter.getManufacturerId()!=null){
+             query.setParameter("id2", filter.getManufacturerId());
+         }
+         if(filter.getDateFrom()!=null){
+             query.setParameter("yr1", filter.getDateFrom());
+         }
+         if(filter.getDateTo()!=null){
+            query.setParameter("yr2", filter.getDateTo());
+         }
+         if(filter.getFuelTypeId()!=null){
+             query.setParameter("ft", filter.getFuelTypeId());
+         }
+         List<Offer> result = query.getResultList();
+         return result;
+     }
+    
 }

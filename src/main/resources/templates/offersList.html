@@ -6,6 +6,8 @@
         <title>Lista ofert</title>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" />
     </head>
     <body>
           <div id="offerFilter" class="panel panel-default">
@@ -15,9 +17,17 @@
                         <select class="form-control" th:field="*{manufacturerId}">
                             <option th:each="manufacturer : ${carManufacturers}" th:value="${manufacturer.id}" th:text="${manufacturer.name}"></option>
                         </select>
-                        <select class="form-control">
-                            <option value="">Model</option>
+                        <select class="form-control" th:field="*{modelId}">
+                            <option th:each="model : ${carModels}" th:value="${model.id}" th:text="${model.name}"></option>
                         </select>
+                        <select class="form-control" th:field="*{fuelTypeId}">
+                            <option th:each="ft : ${fuelTypes}" th:value="${ft.id}" th:text="${ft.name}"></option>
+                        </select>
+                        <label for='dateFrom'>Produkcja od: </label>
+                        <input id='dateFrom'></input>
+                        <label for='dateFrom'>Produkcja do: </label>
+                        <input id='dateTo'></input>
+                        
 
                         <input type="submit" value="Filtruj" class="form-control"/>
                     </form>
