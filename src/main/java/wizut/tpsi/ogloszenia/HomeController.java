@@ -61,11 +61,11 @@ public class HomeController {
 //    carModels = null;
 //}
 
-List<Offer> offers = null;
+List<Offer> offers;
 List<CarModel> carModels = null;
 
 if(offerFilter.getManufacturerId()!=null){
-    carModels = offersService.getCarModels(offerFilter.getModelId());
+    carModels = offersService.getCarModels(offerFilter.getManufacturerId());
 }
 offers = offersService.getOffers(offerFilter);
 

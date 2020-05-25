@@ -24,9 +24,9 @@
                             <option th:each="ft : ${fuelTypes}" th:value="${ft.id}" th:text="${ft.name}"></option>
                         </select>
                         <label for='dateFrom'>Produkcja od: </label>
-                        <input id='dateFrom'></input>
-                        <label for='dateFrom'>Produkcja do: </label>
-                        <input id='dateTo'></input>
+                        <input id='dateFrom' th:field="*{dateFrom}"></input>
+                        <label for='dateTo' >Produkcja do: </label>
+                        <input id='dateTo' th:field="*{dateTo}"></input>
                         
 
                         <input type="submit" value="Filtruj" class="form-control"/>
