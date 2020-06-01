@@ -48,6 +48,10 @@
             </table>
             <div th:text="${offer.description}" class="well">
             </div>
+            <div>
+    <a th:href="|/deleteoffer/${offer.id}|" class="btn btn-danger">Usuń ogłoszenie</a>
+    <a th:href="|/editoffer/${offer.id}|" class="btn btn-primary">Edytuj ogłoszenie</a>
+</div>
         </section>
     </body>
 </html>

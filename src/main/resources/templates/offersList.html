@@ -8,9 +8,12 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" />
+        
     </head>
     <body>
-          <div id="offerFilter" class="panel panel-default">
+          
+        <section layout:fragment="content">
+            <div id="offerFilter" class="panel panel-default">
                 <div class="panel-heading">Szukaj ofert</div>
                 <div class="panel-body">
                     <form id="offerFilterForm" action="/" method="get" class="form-inline" th:object="${offerFilter}">
@@ -27,13 +30,14 @@
                         <input id='dateFrom' th:field="*{dateFrom}"></input>
                         <label for='dateTo' >Produkcja do: </label>
                         <input id='dateTo' th:field="*{dateTo}"></input>
-                        
+                        </br>
+                        <label for='offerDes' >Opis zawiera: </label>
+                        <input id='offerDes' th:field="*{offerDes}"></input>
 
                         <input type="submit" value="Filtruj" class="form-control"/>
                     </form>
                 </div>
             </div>
-        <section layout:fragment="content">
             <table class="table">
         <tr>
             <th>Tytuł</th>
@@ -55,6 +59,7 @@
             <td><a th:href="|/offer/${offer.id}|">Pokaż</a></td>
         </tr>
     </table>
+            
         </section>
         
     </body>

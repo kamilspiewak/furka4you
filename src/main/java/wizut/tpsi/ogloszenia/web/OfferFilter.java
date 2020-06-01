@@ -16,6 +16,15 @@ public class OfferFilter {
     private Integer dateFrom;
     private Integer dateTo;
     private Integer fuelTypeId;
+    private String offerDes;
+
+    public String getOfferDes() {
+        return offerDes;
+    }
+
+    public void setOfferDes(String offerDes) {
+        this.offerDes = offerDes;
+    }
 
     public Integer getManufacturerId() {
         return manufacturerId;

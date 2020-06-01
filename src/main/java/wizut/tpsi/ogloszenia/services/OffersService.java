@@ -107,8 +107,10 @@ public class OffersService {
     return offer;
 }
      
-     public List<Offer> getOffers(OfferFilter filter){
-         
+     public List<Offer> getOffers(OfferFilter filter, Integer pageNumber){
+         if(pageNumber==null){
+             pageNumber = 1;
+         }
          String jpql = "select off from Offer off where 1=1 ";
          if(filter.getModelId()!=null){
              jpql = jpql.concat("and off.model.id = :id ");
@@ -124,6 +126,9 @@ public class OffersService {
          }
          if(filter.getFuelTypeId()!=null){
              jpql = jpql.concat("and off.fuelType.id = :ft ");
+         }
+         if(filter.getOfferDes()!=null){
+             jpql = jpql.concat("and off.description LIKE :pattern ");
          }
          jpql = jpql.concat("order by off.title");
          TypedQuery<Offer> query = em.createQuery(jpql,Offer.class);
@@ -142,8 +147,25 @@ public class OffersService {
          if(filter.getFuelTypeId()!=null){
              query.setParameter("ft", filter.getFuelTypeId());
          }
+         if(filter.getOfferDes()!=null){
+             
+             query.setParameter("pattern", "%"+filter.getOfferDes()+"%");
+         }
+       //  int pageNumber = 1;
+         int pageSize = 2;
+         query.setFirstResult((pageNumber-1)*pageSize);
+         query.setMaxResults(pageSize);
          List<Offer> result = query.getResultList();
          return result;
      }
+     
+     public Offer deleteOffer(Integer id) {
+    Offer offer = em.find(Offer.class, id);
+    em.remove(offer);
+    return offer;
+}
+     public Offer saveOffer(Offer offer) {
+    return em.merge(offer);
+}
     
 }
