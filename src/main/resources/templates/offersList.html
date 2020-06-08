@@ -18,12 +18,15 @@
                 <div class="panel-body">
                     <form id="offerFilterForm" action="/" method="get" class="form-inline" th:object="${offerFilter}">
                         <select class="form-control" th:field="*{manufacturerId}">
+                            <option th:value="-1" >Wybierz producenta</option>
                             <option th:each="manufacturer : ${carManufacturers}" th:value="${manufacturer.id}" th:text="${manufacturer.name}"></option>
                         </select>
                         <select class="form-control" th:field="*{modelId}">
+                            <option th:value="-1" >Wybierz model</option>
                             <option th:each="model : ${carModels}" th:value="${model.id}" th:text="${model.name}"></option>
                         </select>
                         <select class="form-control" th:field="*{fuelTypeId}">
+                            <option th:value="-1" >Wybierz rodzaj paliwa</option>
                             <option th:each="ft : ${fuelTypes}" th:value="${ft.id}" th:text="${ft.name}"></option>
                         </select>
                         <label for='dateFrom'>Produkcja od: </label>
@@ -33,7 +36,16 @@
                         </br>
                         <label for='offerDes' >Opis zawiera: </label>
                         <input id='offerDes' th:field="*{offerDes}"></input>
-
+                        
+                        <select class="form-control" th:field="*{sort}">
+                            <option th:value="-1" >Sortowanie alfabetyczne (domyślne)</option>
+                            <option th:value="0" >Po roku produkcji rosnąco</option>
+                            <option th:value="1" >Po roku produkcji malejąco</option>
+                            <option th:value="2" >Po cenie rosnąco</option>
+                            <option th:value="3" >Po cenie malejąco</option>
+                            <option th:value="4" >Od najnowszych</option>
+                            <option th:value="5" >Od najstarszych</option>
+                        </select>
                         <input type="submit" value="Filtruj" class="form-control"/>
                     </form>
                 </div>
@@ -59,7 +71,11 @@
             <td><a th:href="|/offer/${offer.id}|">Pokaż</a></td>
         </tr>
     </table>
-            
+         <!--   <div th:each="pageNumber : ${pageNumbers}">
+                
+            <a th:href="${${#httpServletRequest.requestURI}=='http://localhost:8080/'} ? '?pageNumber=${pageNumber}' : '&pageNumber=${pageNumber}'"
+                th:text=${pageNumber}></a>
+        </div> -->
         </section>
         
     </body>

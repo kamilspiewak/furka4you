@@ -29,20 +29,20 @@ insert into fuel_type(name) values
 insert into body_style(name) values
 ('Hatchback'), ('Sedan'), ('Coupe'), ('Kombi'), ('SUV'), ('Pickup'), ('Kabriolet'), ('Terenowy');
 
-insert into offer(title, model_id, body_style_id, fuel_type_id, year, mileage, engine_size, engine_power, doors, colour, description, price, user_id) values
+insert into offer(title, model_id, body_style_id, fuel_type_id, year, mileage, engine_size, engine_power, doors, colour, description, price, user_id, add_date) values
 (
 'Nissan Primera P11.144', 10, 1, 1, 2000, 152000, 1.6, 100, 5, 'wiśniowy',
-'Nie sprzedam za nic w świecie, proszę nie dzwonić i nie pytać. Pokazuję zdjęcia, żeby się pochwalić.', 0, 1
+'Nie sprzedam za nic w świecie, proszę nie dzwonić i nie pytać. Pokazuję zdjęcia, żeby się pochwalić.', 0, 1, TO_DATE('01/06/2020', 'DD/MM/YYYY')
 ),
 (
 'Nissan Bluebird', 13, 2, 2, 1988, 352000, 2.0, 75, 4, 'biały',
-'Zadbany klasyk, dla koneserów. Klimatyzacja automatyczna, komputer pokładowy, nawigacja satelitarna, podgrzewane siedzenia, system kontroli trakcji - tych ani żadnych innych zbędnych bzdetów to auto nie posiada.', 2500, 1
+'Zadbany klasyk, dla koneserów. Klimatyzacja automatyczna, komputer pokładowy, nawigacja satelitarna, podgrzewane siedzenia, system kontroli trakcji - tych ani żadnych innych zbędnych bzdetów to auto nie posiada.', 2500, 1, TO_DATE('05/06/2020', 'DD/MM/YYYY')
 ),
 (
 'BMW 316 aka Dresowóz Klasyk', 59, 2, 1, 1991, 452000, 1.8, 110, 4, 'czarny',
-'W komplecie dresy Adidas, kij bejzbolowy i alibi na najbliższy weekend.', 1750, 3
+'W komplecie dresy Adidas, kij bejzbolowy i alibi na najbliższy weekend.', 1750, 3, TO_DATE('07/06/2020', 'DD/MM/YYYY')
 ),
 (
 'Honda Jazz zadbana', 34, 1, 2, 2012, 17000, 1.2, 90, 3, 'błękitny',
-'Niemiecki dziadek jeździł do kościoła i na działkę. Niepalona, niebita, serwisowana w ASO.', 22500, 2
+'Niemiecki dziadek jeździł do kościoła i na działkę. Niepalona, niebita, serwisowana w ASO.', 22500, 2, TO_DATE('06/06/2020', 'DD/MM/YYYY')
 );

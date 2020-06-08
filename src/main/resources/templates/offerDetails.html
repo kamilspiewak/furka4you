@@ -45,6 +45,10 @@
                     <th>Rodzaj paliwa:</th>
                     <td th:text="*{fuelType.name}"></td>
                 </tr>
+                <tr>
+                    <th>Data dodania</th>
+                    <td th:text="|*{data}|"></td>
+                </tr>
             </table>
             <div th:text="${offer.description}" class="well">
             </div>

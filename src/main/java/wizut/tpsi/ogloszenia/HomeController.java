@@ -5,8 +5,12 @@
  */
 package wizut.tpsi.ogloszenia;
 
+import java.sql.Date;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -41,7 +45,7 @@ public class HomeController {
     }
     
     @GetMapping("/")
-    public String home(Model model, OfferFilter offerFilter,Integer pageNumber) {
+    public String home(Model model, OfferFilter offerFilter) {
     List<CarManufacturer> carManufacturers = offersService.getCarManufacturers();
     List<FuelType> fuelTypes = offersService.getFuelTypes();
    // List<CarModel> carModels = offersService.getCarModels();
@@ -67,12 +71,19 @@ List<CarModel> carModels = null;
 if(offerFilter.getManufacturerId()!=null){
     carModels = offersService.getCarModels(offerFilter.getManufacturerId());
 }
-offers = offersService.getOffers(offerFilter,pageNumber);
+offers = offersService.getOffers(offerFilter);
 
     model.addAttribute("carManufacturers", carManufacturers);
     model.addAttribute("carModels", carModels);
     model.addAttribute("fuelTypes", fuelTypes);
     model.addAttribute("offers", offers);
+    int temp = offers.size()/2;
+    if (temp > 0) {
+            List<Integer> pageNumbers = IntStream.rangeClosed(1, temp)
+                .boxed()
+                .collect(Collectors.toList());
+            model.addAttribute("pageNumbers", pageNumbers);
+        }
 
     return "offersList";
 }
@@ -114,6 +125,8 @@ public String saveNewOffer(Model model, @Valid Offer offer, BindingResult bindin
 
         return "offerForm";
     }
+    offer.setData(new Date(1,1,1));
+    
     offer = offersService.createOffer(offer);
 
     return "redirect:/offer/" + offer.getId();

@@ -17,6 +17,15 @@ public class OfferFilter {
     private Integer dateTo;
     private Integer fuelTypeId;
     private String offerDes;
+    private Integer sort; //
+
+    public Integer getSort() {
+        return sort;
+    }
+
+    public void setSort(Integer sort) {
+        this.sort = sort;
+    }
 
     public String getOfferDes() {
         return offerDes;
@@ -65,6 +74,7 @@ public class OfferFilter {
     public void setFuelTypeId(Integer fuelTypeId) {
         this.fuelTypeId = fuelTypeId;
     }
+    
     
     
 }

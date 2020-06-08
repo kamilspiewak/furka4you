@@ -6,6 +6,8 @@
 package wizut.tpsi.ogloszenia.services;
 
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
@@ -106,16 +108,21 @@ public class OffersService {
     em.persist(offer);
     return offer;
 }
+
      
-     public List<Offer> getOffers(OfferFilter filter, Integer pageNumber){
-         if(pageNumber==null){
-             pageNumber = 1;
-         }
+     public List<Offer> getOffers(OfferFilter filter){
+//         if(pageNumber==null){
+//             pageNumber = 1;
+//         }
+//         if(pageNumber<1){
+//             pageNumber=1;
+//         }
+         
          String jpql = "select off from Offer off where 1=1 ";
-         if(filter.getModelId()!=null){
+         if(filter.getModelId()!=null && filter.getModelId()!=-1){
              jpql = jpql.concat("and off.model.id = :id ");
          }
-         if(filter.getManufacturerId()!=null){
+         if(filter.getManufacturerId()!=null && filter.getManufacturerId()!=-1){
              jpql = jpql.concat("and off.model.manufacturer.id = :id2 ");
          }
          if(filter.getDateFrom()!=null){
@@ -124,18 +131,25 @@ public class OffersService {
          if(filter.getDateTo()!=null){
              jpql = jpql.concat("and off.year <= :yr2 ");
          }
-         if(filter.getFuelTypeId()!=null){
+         if(filter.getFuelTypeId()!=null && filter.getFuelTypeId()!=-1){
              jpql = jpql.concat("and off.fuelType.id = :ft ");
          }
          if(filter.getOfferDes()!=null){
              jpql = jpql.concat("and off.description LIKE :pattern ");
          }
-         jpql = jpql.concat("order by off.title");
+         
+         if(filter.getSort()==null || filter.getSort()==-1) jpql = jpql.concat("order by off.title");
+         else if(filter.getSort()==0) jpql = jpql.concat("order by off.year");
+         else if(filter.getSort()==1) jpql = jpql.concat("order by off.year desc");
+         else if(filter.getSort()==2) jpql = jpql.concat("order by off.price");
+         else if(filter.getSort()==3) jpql = jpql.concat("order by off.price desc");
+         else if(filter.getSort()==4) jpql = jpql.concat("order by off.data");
+         else if(filter.getSort()==5) jpql = jpql.concat("order by off.data desc");
          TypedQuery<Offer> query = em.createQuery(jpql,Offer.class);
-         if(filter.getModelId()!=null){
+         if(filter.getModelId()!=null && filter.getModelId()!=-1){
              query.setParameter("id", filter.getModelId());
          }
-         if(filter.getManufacturerId()!=null){
+         if(filter.getManufacturerId()!=null && filter.getManufacturerId()!=-1){
              query.setParameter("id2", filter.getManufacturerId());
          }
          if(filter.getDateFrom()!=null){
@@ -144,7 +158,7 @@ public class OffersService {
          if(filter.getDateTo()!=null){
             query.setParameter("yr2", filter.getDateTo());
          }
-         if(filter.getFuelTypeId()!=null){
+         if(filter.getFuelTypeId()!=null && filter.getFuelTypeId()!=-1){
              query.setParameter("ft", filter.getFuelTypeId());
          }
          if(filter.getOfferDes()!=null){
@@ -152,10 +166,19 @@ public class OffersService {
              query.setParameter("pattern", "%"+filter.getOfferDes()+"%");
          }
        //  int pageNumber = 1;
-         int pageSize = 2;
-         query.setFirstResult((pageNumber-1)*pageSize);
-         query.setMaxResults(pageSize);
-         List<Offer> result = query.getResultList();
+//         int pageSize = 2;
+//         query.setFirstResult((pageNumber-1)*pageSize);
+//         query.setMaxResults(pageSize);
+//         
+//         int temp = result.size()/pageSize;
+//         if((result.size()%pageSize)!=0){
+//             temp++;
+//         }
+//         if(pageNumber>temp){
+//             pageNumber=temp;
+//         }
+//         
+List<Offer> result = query.getResultList();
          return result;
      }
      
