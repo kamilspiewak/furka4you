@@ -5,7 +5,7 @@
  */
 package wizut.tpsi.ogloszenia;
 
-import java.sql.Date;
+import java.util.Date;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.List;
@@ -125,7 +125,7 @@ public String saveNewOffer(Model model, @Valid Offer offer, BindingResult bindin
 
         return "offerForm";
     }
-    offer.setData(new Date(1,1,1));
+    offer.setData(LocalDate.now());
     
     offer = offersService.createOffer(offer);
 

@@ -6,7 +6,7 @@
 package wizut.tpsi.ogloszenia.jpa;
 
 import java.math.BigDecimal;
-import java.util.Date;
+import java.time.LocalDate;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -79,9 +79,8 @@ public class Offer {
     @Column(name = "price")
     private Integer price;
     
-    @NotNull
     @Column(name="add_date")
-    private Date data;
+    private LocalDate data;
 
     @NotNull
     @JoinColumn(name = "model_id", referencedColumnName = "id")
@@ -204,11 +203,11 @@ public class Offer {
         this.fuelType = fuelType;
     }
 
-    public Date getData() {
+    public LocalDate getData() {
         return data;
     }
 
-    public void setData(Date data) {
+    public void setData(LocalDate data) {
         this.data = data;
     }
     
